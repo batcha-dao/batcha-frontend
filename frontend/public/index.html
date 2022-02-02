@@ -14,59 +14,256 @@
         <nav id="navbar-main" class="navbar d-flex flex-row align-items-center navbar-main navbar-expand-lg navbar-dark justify-content-between">
             <ul class="navbar-nav navbar-nav-hover flex-row align-items-center">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link" role="button">
+                    <a onclick="movePage(0)" class="nav-link" role="button">
                         <span class="nav-link-inner-text">📺 Start</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/batches.html" class="nav-link" role="button">
+                    <a onclick="movePage(1)" class="nav-link" role="button">
                         <span class="nav-link-inner-text">📕 Batches</span>
                     </a>
                 </li>
             </ul>
-            <div class="time text-center">
-                <span class="time text-uppercase">1:47 PM</span>
+            <div>
+                <a id="connectMetamaskButton" onclick="connectMetamask()" class="btn btn-sm mr-2 btn-tertiary" role="button" data-toggle="tooltip" data-placement="bottom" title data-original-title="Connect to metamask" style="color:white;">
+                    <span class="showMetamaskStatus btn-text">Connect</span>
+                </a>
             </div>
         </nav>
     </header>
     <main>
-        <!-- Hero -->
-        <section class="section section-lg bg-secondary overflow-hidden z-2">
-            <div class="container z-2">
-                <div class="row justify-content-center pt-6 pt-md-5 pb-0 mb-2">
-                    <div class="col-12 col-xl-7">
-                        <div class="card card-tertiary">
-                            <div class="card-header text-center">
-                                <span>BATCHA!</span>
-                            </div>
-                            <div class="card-body">
-                                <p>
-                                    <img src="src/batcha_logo_trans.png" class="mx-auto d-block" style="width: 250px; height:250px;">
-                                </p>
-                                <p class="card-text"><span class="text-italic">BATCHA!</span> is a Layer-2 solution to reduce fees, prevent MEV, and strengthen privacy on Layer-1 blockchain. Such as Ethereum, BSC, even Polygon can be upgraded their dApp systems through BATCHA.</p>
-                                <p class="card-text">More precisely, it's a hybrid solution of Layer-2 and its own Layer-1. Therefore, BATCHA has a native token named "BATCH" to make consensus on batchers.</p>
-                                <div class="text-center">
-                                    <a href="https://github.com/batcha-dao/batcha-docs" target="_blank" class="btn btn-sm mr-2 btn-primary border-dark"
-                                        role="button"><span class="btn-text">Read Docs</span></a>
+        <!-- Start -->
+        <div id="startPage" style="display:block;">
+            <section class="section section-lg bg-secondary overflow-hidden z-2">
+                <div class="container z-2">
+                    <div class="row justify-content-center pt-6 pt-md-5 pb-0 mb-2">
+                        <div class="col-12 col-xl-7">
+                            <div class="card card-tertiary">
+                                <div class="card-header text-center">
+                                    <span>BATCHA!</span>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        <img src="src/batcha_logo_trans.png" class="mx-auto d-block" style="width: 250px; height:250px;">
+                                    </p>
+                                    <p class="card-text"><span class="text-italic">BATCHA!</span> is a Layer-2 solution to reduce fees, prevent MEV, and strengthen privacy on Layer-1 blockchain. Such as Ethereum, BSC, even Polygon can be upgraded their dApp systems through BATCHA.</p>
+                                    <p class="card-text">More precisely, it's a hybrid solution of Layer-2 and its own Layer-1. Therefore, BATCHA has a native token named "BATCH" to make consensus on batchers.</p>
+                                    <div class="text-center">
+                                        <a href="https://github.com/batcha-dao/batcha-docs" target="_blank" class="btn btn-sm mr-2 btn-primary border-dark"
+                                            role="button"><span class="btn-text">Read Docs</span></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+
+        <!-- Batches -->
+        <div id="batchPage" style="display:none;">
+            <section class="section-sm bg-secondary">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="my-5">
+                                        <!-- Tab Nav -->
+                                        <div class="nav-wrapper position-relative p-0">
+                                            <ul class="nav nav-tabs flex-column flex-md-row" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link mb-sm-3 mb-md-0 active" id="transaction-form-tab"
+                                                        data-toggle="tab" href="#transaction-form" role="tab"
+                                                        aria-controls="transaction-form" aria-selected="true">Transaction</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link mb-sm-3 mb-md-0" id="remote-form-tab"
+                                                        data-toggle="tab" href="#remote-form" role="tab"
+                                                        aria-controls="remote-form" aria-selected="false">Remote</a>
+                                                </li>
+                                                <!-- <span class="badge badge-md badge-primary copy-docs">Copy</span> -->
+                                            </ul>
+                                        </div>
+                                        <!-- End of Tab Nav -->
+                                        <div class="card border-0">
+                                            <div class="card-body bg-white">
+                                                <div class="tab-content bg-white">
+                                                    <div class="tab-pane fade show active" id="transaction-form" role="tabpanel"
+                                                        aria-labelledby="transaction-form-tab">
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="from" class="mr-3">From:</label>
+                                                            <input id="from" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="to" class="mr-3">To:</label>
+                                                            <input id="to" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="amount" class="mr-3">Amount:</label>
+                                                            <input id="amount" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="signature" class="mr-3">Signature:</label>
+                                                            <input id="signature" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div class="form-group d-flex justify-content-between mb-2">
+                                                            <label for="data" class="mr-3">Data:</label>
+                                                            <textarea id="data" class="form-control w-75" cols="30"
+                                                                rows="10"></textarea>
+                                                        </div>
+                                                        <div class="form-check d-flex justify-content-between mb-2">
+                                                            <label for="option" class="mr-3">Option:</label>
+                                                            <label class="form-check-label w-75">
+                                                                <input class="form-check-input" type="checkbox">
+                                                                <span class="form-check-x"></span>
+                                                                <span class="form-check-sign"></span>
+                                                                IBATCH
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex justify-content-between mb-2">
+                                                            <div class="mr-3"></div>
+                                                            <label class="form-check-label w-75">
+                                                                <input class="form-check-input" type="checkbox">
+                                                                <span class="form-check-x"></span>
+                                                                <span class="form-check-sign"></span>
+                                                                RBATCH
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex justify-content-between mb-2">
+                                                            <div class="mr-3"></div>
+                                                            <label class="form-check-label w-75">
+                                                                <input class="form-check-input" type="checkbox">
+                                                                <span class="form-check-x"></span>
+                                                                <span class="form-check-sign"></span>
+                                                                PRIVACY
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group d-flex justify-content-end mb-4">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-x"></span>
+                                                                    <span class="form-check-sign"></span>
+                                                                    I agree to the terms and conditions
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-end">
+                                                            <div class="d-flex">
+                                                                <button class="btn btn-sm mr-3 btn-primary border-dark"
+                                                                    type="button" onclick="submitTxReq()">
+                                                                    <span class="btn-text">Submit</span>
+                                                                </button>
+                                                                <button class="btn btn-sm btn-primary" type="button">
+                                                                    <span class="btn-text">Cancel</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="remote-form" role="tabpanel"
+                                                        aria-labelledby="remote-form-tab">
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="from" class="mr-3">From:</label>
+                                                            <input id="from" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="to" class="mr-3">To:</label>
+                                                            <input id="to" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="amount" class="mr-3">Amount:</label>
+                                                            <input id="amount" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div
+                                                            class="form-group d-flex align-items-center justify-content-between">
+                                                            <label for="signature" class="mr-3">Signature:</label>
+                                                            <input id="signature" type="text" class="form-control w-75" />
+                                                        </div>
+                                                        <div class="form-group d-flex justify-content-between mb-2">
+                                                            <label for="data" class="mr-3">Data:</label>
+                                                            <textarea id="data" class="form-control w-75" cols="30"
+                                                                rows="10"></textarea>
+                                                        </div>
+                                                        <div class="form-check d-flex justify-content-between mb-2">
+                                                            <label for="option" class="mr-3">Option:</label>
+                                                            <label class="form-check-label w-75">
+                                                                <input class="form-check-input" type="checkbox">
+                                                                <span class="form-check-x"></span>
+                                                                <span class="form-check-sign"></span>
+                                                                IBATCH
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex justify-content-between mb-2">
+                                                            <div class="mr-3"></div>
+                                                            <label class="form-check-label w-75">
+                                                                <input class="form-check-input" type="checkbox">
+                                                                <span class="form-check-x"></span>
+                                                                <span class="form-check-sign"></span>
+                                                                RBATCH
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex justify-content-between mb-2">
+                                                            <div class="mr-3"></div>
+                                                            <label class="form-check-label w-75">
+                                                                <input class="form-check-input" type="checkbox">
+                                                                <span class="form-check-x"></span>
+                                                                <span class="form-check-sign"></span>
+                                                                PRIVACY
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group d-flex justify-content-end mb-4">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-x"></span>
+                                                                    <span class="form-check-sign"></span>
+                                                                    I agree to the terms and conditions
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-end">
+                                                            <div class="d-flex">
+                                                                <button class="btn btn-sm mr-3 btn-primary border-dark"
+                                                                    type="button">
+                                                                    <span class="btn-text">Submit</span>
+                                                                </button>
+                                                                <button class="btn btn-sm btn-primary" type="button">
+                                                                    <span class="btn-text">Cancel</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
     <footer>
         <nav id="navbar-footer"
             class="navbar navbar-main navbar-expand-lg navbar-dark justify-content-between navbar-footer">
             <ul class="navbar-nav navbar-nav-hover flex-row align-items-center">
                 <li class="nav-item">
-                    <a href="../index.html" class="nav-link" role="button">
+                    <a onclick="movePage(0)" class="nav-link" role="button">
                         <span class="nav-link-inner-text">📺 Start</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="batches.html" class="nav-link" role="button">
+                    <a onclick="movePage(1)" class="nav-link" role="button">
                         <span class="nav-link-inner-text">📕 Batches</span>
                     </a>
                 </li>
@@ -83,6 +280,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- pixel JS -->
     <script src="../js/pixel.js"></script>
+    <!-- batcha -->
+    <script src="../js/function.js"></script>
+    <script src="../js/request.js"></script>
 
 </body>
 
